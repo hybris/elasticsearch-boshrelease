@@ -1,0 +1,3 @@
+[submodule "packages/java"]
+	path = packages/java
+	url = https://github.com/hybris/java-boshpackage.git

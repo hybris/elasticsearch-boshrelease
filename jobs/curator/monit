@@ -1,0 +1,5 @@
+check file curator_cron with path /etc/cron.hourly/curator
+  start program "/var/vcap/jobs/curator/bin/curator_ctl.sh start"
+  stop program "/var/vcap/jobs/curator/bin/curator_ctl.sh stop"
+  group vcap
+  if does not exist then exec "/bin/echo 'File is not there'"

@@ -1,0 +1,13 @@
+---
+name: curator
+
+templates:
+  curator_ctl.erb.sh: bin/curator_ctl.sh
+
+packages:
+  - curator
+
+properties:
+  curator.retention_days:
+    description: indexes retention days
+    default: 7

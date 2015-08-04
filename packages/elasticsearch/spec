@@ -1,0 +1,7 @@
+---
+name: elasticsearch
+
+dependencies: []
+
+files:
+  - elasticsearch/elasticsearch-1.5.2.tar.gz

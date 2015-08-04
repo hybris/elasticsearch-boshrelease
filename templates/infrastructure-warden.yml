@@ -1,0 +1,102 @@
+meta:
+  environment: elasticsearch-warden
+
+  stemcell:
+    name: bosh-warden-boshlite-ubuntu
+    version: latest
+
+update:
+  canaries: 1
+  max_in_flight: 50
+  canary_watch_time: 1000-30000
+  update_watch_time: 1000-30000
+
+jobs:
+  - name: elasticsearch
+    networks:
+      - name: elasticsearch1
+    properties:
+      elasticsearch:
+        number_of_shards: 1
+        number_of_replicas: 0
+        gateway_recover_after_nodes: 1
+        gateway_expected_nodes: 1
+
+compilation:
+  cloud_properties:
+    name: random
+
+resource_pools:
+  - name: small_z1
+    cloud_properties:
+      name: random
+
+networks:
+- name: elasticsearch1
+  # Assumes up to 5 VMs, including 1 static and 4 dynamic.
+  # Plus 5 (double the size) unused IPs, due to BOSH bug/quirk.
+  subnets:
+  - cloud_properties:
+      name: random
+    range: 10.244.31.0/30
+    reserved:
+    - 10.244.31.1
+    static:
+    - 10.244.31.2
+
+  - cloud_properties:
+      name: random
+    range: 10.244.31.4/30
+    reserved:
+    - 10.244.31.5
+    static: []
+  - cloud_properties:
+      name: random
+    range: 10.244.31.8/30
+    reserved:
+    - 10.244.31.9
+    static: []
+  - cloud_properties:
+      name: random
+    range: 10.244.31.12/30
+    reserved:
+    - 10.244.31.13
+    static: []
+  - cloud_properties:
+      name: random
+    range: 10.244.31.16/30
+    reserved:
+    - 10.244.31.17
+    static: []
+
+  # Bonus double-sized network required due to BOSH oddity
+  - cloud_properties:
+      name: random
+    range: 10.244.31.20/30
+    reserved:
+    - 10.244.31.21
+    static: []
+  - cloud_properties:
+      name: random
+    range: 10.244.31.24/30
+    reserved:
+    - 10.244.31.25
+    static: []
+  - cloud_properties:
+      name: random
+    range: 10.244.31.28/30
+    reserved:
+    - 10.244.31.29
+    static: []
+  - cloud_properties:
+      name: random
+    range: 10.244.31.32/30
+    reserved:
+    - 10.244.31.33
+    static: []
+  - cloud_properties:
+      name: random
+    range: 10.244.31.36/30
+    reserved:
+    - 10.244.31.37
+    static: []

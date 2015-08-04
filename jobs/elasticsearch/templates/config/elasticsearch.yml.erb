@@ -1,0 +1,41 @@
+<% if p('elasticsearch.cluster', nil) %>
+################################### Cluster ###################################
+cluster.name: <%= p('elasticsearch.cluster') %>
+
+#################################### Node #####################################
+node.name: <%= spec.job.name %>-<%= spec.index + p("elasticsearch.index_offset").to_i %>
+node.master: <%= p('elasticsearch.node_master') %>
+node.data: <%= p('elasticsearch.node_data') %>
+<% end %>
+
+#################################### Index ####################################
+index.number_of_shards: <%= p('elasticsearch.number_of_shards') %>
+index.number_of_replicas: <%= p('elasticsearch.number_of_replicas') %>
+
+#################################### Paths ####################################
+path.data: /var/vcap/store/elasticsearch
+path.work: /var/vcap/data/elasticsearch
+path.logs: /var/vcap/sys/log/elasticsearch
+
+################################### Memory ####################################
+bootstrap.mlockall: <%= p('elasticsearch.mlockall') %>
+
+################################### Gateway ###################################
+gateway.recover_after_nodes: <%= p('elasticsearch.gateway_recover_after_nodes') %>
+gateway.recover_after_time: <%= p('elasticsearch.gateway_recover_after_time') %>
+gateway.expected_nodes: <%= p('elasticsearch.gateway_expected_nodes') %>
+
+<% if p('elasticsearch.ping_hosts').size > 0 %>
+################################## Discovery ##################################
+discovery.zen.minimum_master_nodes: <%= p('elasticsearch.discovery_minimum_master') %>
+discovery.zen.ping.timeout: <%= p('elasticsearch.discovery_ping_timeout') %>
+discovery.zen.ping.multicast.enabled: false
+discovery.zen.ping.unicast.hosts: <%= p('elasticsearch.ping_hosts').flatten %>
+<% end %>
+
+################################## Custom ################################
+action.disable_delete_all_indices: true
+index.refresh_interval: <%= p('elasticsearch.index_refresh_interval') %>
+indices.store.throttle.type: <%= p('elasticsearch.indices_store_throttle_type') %>
+indices.store.throttle.max_bytes_per_sec: <%= p('elasticsearch.indices_store_throttle_max_bytes_per_sec') %>
+script.disable_dynamic: true

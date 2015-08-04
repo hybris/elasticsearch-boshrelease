@@ -1,0 +1,79 @@
+---
+name: elasticsearch
+
+templates:
+  bin/elasticsearch_ctl.erb: bin/elasticsearch_ctl
+  config/elasticsearch.yml.erb: config/elasticsearch.yml
+  config/logging.yml.erb: config/logging.yml
+  config/default-mapping.json.erb: config/default-mapping.json
+
+packages:
+  - java
+  - elasticsearch
+
+properties:
+  elasticsearch.cluster:
+    description: The name of the cluster
+  elasticsearch.index_offset:
+    description: "Offset value to add to the spec.index"
+    default: 0
+  elasticsearch.node_master:
+    description: Allow this node to be eligible as a master node
+  elasticsearch.node_data:
+    description: Allow this node to store data
+  elasticsearch.number_of_shards:
+    description: Set the number of shards (splits) of an index
+    default: 5
+  elasticsearch.number_of_replicas:
+    description: Set the number of replicas (additional copies) of an index
+    default: 2
+  elasticsearch.mlockall:
+    description: lock process address space in RAM to prevent ES to swap out
+    default: true
+  elasticsearch.heap_size:
+    description: memory size of eleasticsearch process
+  elasticsearch.max_open_files:
+    description: Ulimit value at startup
+    default: 64000
+  elasticsearch.max_map_count:
+    description: Operating system limits on mmap counts
+    default: 262144
+  elasticsearch.swappiness:
+    description: Kernel Swappiness
+    default: 1
+  elasticsearch.discovery_minimum_master:
+    description: Set to ensure a node sees N other master eligible nodes to be considered operational within the cluster
+    default: 2
+  elasticsearch.discovery_ping_timeout:
+    description: Set the time to wait for ping responses from other nodes when discovering.
+    default: "60s"
+  elasticsearch.ping_hosts:
+    description: The hosts used for cluster discovery
+    default: []
+  elasticsearch.index_refresh_interval:
+    description: The async refresh interval of a shard
+    default: 1s
+  elasticsearch.indices_store_throttle_type:
+    description: Control Elasticsearch merge type
+    default: merge
+  elasticsearch.indices_store_throttle_max_bytes_per_sec:
+    description: Control Elasticsearch merge size
+    default: 5mb
+  elasticsearch.gateway_recover_after_nodes:
+    description: Allow recovery process after N nodes in a cluster are up
+    default: 1
+  elasticsearch.gateway_recover_after_time:
+    description: Set the timeout to initiate the recovery process
+    default: 1m
+  elasticsearch.gateway_expected_nodes:
+    description: Set how many nodes are expected in this cluster
+    default: 1
+  elasticsearch.plugins_paramedic:
+    default: false
+  elasticsearch.plugins_head:
+    default: false
+  elasticsearch.plugins_bigdesk:
+    default: false
+  elasticsearch.logger.level:
+    description: Logger level
+    default: WARN

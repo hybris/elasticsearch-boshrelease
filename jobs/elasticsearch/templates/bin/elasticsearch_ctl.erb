@@ -1,0 +1,76 @@
+#!/bin/bash
+
+JOB_NAME=elasticsearch
+RUN_DIR=/var/vcap/sys/run/$JOB_NAME
+LOG_DIR=/var/vcap/sys/log/$JOB_NAME
+CONFIG_DIR=/var/vcap/jobs/$JOB_NAME/config
+EPHEMERAL=/var/vcap/data/$JOB_NAME
+PERSISTENT=/var/vcap/store/$JOB_NAME
+PIDFILE=$RUN_DIR/$JOB_NAME.pid
+RUNAS=vcap
+
+exec 1>> $LOG_DIR/$JOB_NAME.stdout.log
+exec 2>> $LOG_DIR/$JOB_NAME.stderr.log
+
+PATH=/var/vcap/packages/java/bin:$PATH
+PATH=/var/vcap/packages/elasticsearch/bin:$PATH
+JAVA_HOME=/var/vcap/packages/java/
+
+export PATH JAVA_HOME
+
+<% if_p('elasticsearch.min_memory') do %>export ES_MIN_MEM="<%= p('elasticsearch.min_memory')%>" <% end %>
+<% if_p('elasticsearch.max_memory') do %>export ES_MAX_MEM="<%= p('elasticsearch.max_memory')%>"<% end %>
+<% if_p('elasticsearch.heap_size') do %>export ES_HEAP_SIZE="<%= p('elasticsearch.heap_size')%>"<% end %>
+<% if_p('elasticsearch.mlockall') do %>ulimit -l unlimited <% end %>
+
+sysctl -w vm.max_map_count=<%= p('elasticsearch.max_map_count')%>
+sysctl -w vm.swappiness=<%= p('elasticsearch.swappiness')%>
+ulimit -n <%= p('elasticsearch.max_open_files') %>
+
+<% if p('elasticsearch.plugins_paramedic', true) %>
+if [ ! -d /var/vcap/packages/elasticsearch/plugins/paramedic ]
+then
+  /var/vcap/packages/elasticsearch/bin/plugin -install karmi/elasticsearch-paramedic
+fi
+<% end %>
+<% if p('elasticsearch.plugins_head', true)%>
+if [ ! -d /var/vcap/packages/elasticsearch/plugins/head ]
+then
+  /var/vcap/packages/elasticsearch/bin/plugin -install mobz/elasticsearch-head
+fi
+<% end %>
+<% if p('elasticsearch.plugins_bigdesk', true)%>
+if [ ! -d /var/vcap/packages/elasticsearch/plugins/bigdesk ]
+then
+  /var/vcap/packages/elasticsearch/bin/plugin -install lukas-vlcek/bigdesk
+fi
+<% end %>
+
+case $1 in
+
+  start)
+    mkdir -p $RUN_DIR $LOG_DIR $EPHEMERAL $PERSISTENT
+    chown -R $RUNAS:$RUNAS $RUN_DIR $LOG_DIR $EPHEMERAL $PERSISTENT
+
+    ## Start Code Here
+    chpst -u $RUNAS:$RUNAS elasticsearch -p $PIDFILE \
+      -Des.path.conf=$CONFIG_DIR &
+
+    ;;
+
+  stop)
+    PID=$(head -1 $PIDFILE)
+
+    <% if p('elasticsearch.cluster', nil) %>
+    curl -s -XPOST 'http://localhost:9200/_cluster/nodes/_local/_shutdown'
+    sleep 5
+    <% end %>
+
+    kill $PID
+    while [ -e /proc/$PID ]; do sleep 0.1; done
+    rm -f $PIDFILE
+    ;;
+
+  *)
+  echo "Usage: elasticsearch_ctl {start|stop}" ;;
+esac

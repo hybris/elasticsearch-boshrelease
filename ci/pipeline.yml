@@ -1,0 +1,175 @@
+groups:
+- name: build
+  jobs:
+  - testflight
+  - rc
+  - shipit
+- name: version
+  jobs:
+  - patch
+  - minor
+  - major
+
+jobs:
+- name: testflight
+  public: true
+  serial: true
+  plan:
+  - do:
+    - aggregate:
+      - get: elasticsearch-boshrelease
+        resource: git-elasticsearch-boshrelease
+      - get: git-elasticsearch-boshrelease-release-changes
+        trigger: true
+    - task: create-release-and-deploy
+      config:
+        platform: linux
+        image: {{docker-hub-task-image}}
+        inputs:
+        - {name: elasticsearch-boshrelease}
+        run:
+          path: ./elasticsearch-boshrelease/ci/scripts/create_release_and_deploy.sh
+          args: []
+        params:
+          bosh_target: {{bosh-lite-build-target}}
+          bosh_username: {{bosh-lite-build-username}}
+          bosh_password: {{bosh-lite-build-password}}
+          bosh_deployment_name: {{bosh-lite-build-deployment-name}}
+
+- name: rc
+  public: true
+  plan:
+  - aggregate:
+    - get: boshrelease
+      resource: git-elasticsearch-boshrelease
+      passed: [testflight]
+      trigger: true
+    - get: version
+      trigger: false
+      params: {bump: minor, pre: rc}
+  - put: version
+    params: {file: version/number}
+
+- name: patch
+  public: true
+  plan:
+  - aggregate:
+    - get: version
+      trigger: false
+      params: {bump: patch}
+  - put: version
+    params: {file: version/number}
+
+- name: minor
+  public: true
+  plan:
+  - aggregate:
+    - get: version
+      trigger: false
+      params: {bump: minor}
+  - put: version
+    params: {file: version/number}
+
+- name: major
+  public: true
+  plan:
+  - aggregate:
+    - get: version
+      trigger: false
+      params: {bump: major}
+  - put: version
+    params: {file: version/number}
+
+- name: shipit
+  public: true
+  serial: true
+  plan:
+  - aggregate:
+    - get: version
+      passed: [rc]
+      params: {bump: final}
+    - get: boshrelease
+      resource: git-elasticsearch-boshrelease
+      passed: [rc]
+  - task: create-final-release
+    config:
+      platform: linux
+      image: {{docker-hub-task-image}}
+      inputs:
+      - {name: boshrelease, path: elasticsearch-boshrelease}
+      - {name: version}
+      run:
+        path: ./elasticsearch-boshrelease/ci/scripts/shipit.sh
+        args: []
+      params:
+        release_name: "elasticsearch BOSH Release"
+        bosh_target: {{bosh-lite-build-target}}
+        bosh_username: {{bosh-lite-build-username}}
+        bosh_password: {{bosh-lite-build-password}}
+        bosh_deployment_name: {{bosh-lite-build-deployment-name}}
+        aws_access_key_id: {{boshrelease-aws-access-key-id}}
+        aws_secret_access_key: {{boshrelease-aws-secret-access-key}}
+        promotion_branch: master
+  - put: git-elasticsearch-boshrelease
+    params:
+      repository: create-final-release/elasticsearch-boshrelease
+      rebase: true
+  - aggregate:
+    - put: version
+      params: {file: version/number}
+    - put: final-release
+      params:
+        from: create-final-release/elasticsearch-boshrelease/releases/elasticsearch/elasticsearch-(.*).tgz
+        to: elasticsearch-boshrelease/
+    - put: github-final-release
+      params:
+        name: create-final-release/elasticsearch-boshrelease/release/name
+        tag: create-final-release/elasticsearch-boshrelease/release/tag
+        body: create-final-release/elasticsearch-boshrelease/release/notes.md
+        globs: [create-final-release/elasticsearch-boshrelease/releases/elasticsearch/elasticsearch-*.tgz]
+
+resources:
+- name: version
+  type: semver
+  source:
+    key: current-version
+    bucket: {{pipeline-aws-bucket}}
+    access_key_id: {{pipeline-aws-access-key-id}}
+    secret_access_key: {{pipeline-aws-secret-access-key}}
+    initial_version: 0.0.0
+
+- name: git-elasticsearch-boshrelease
+  type: git
+  source:
+    uri: git@github.com:hybris/elasticsearch-boshrelease.git
+    branch: master
+    private_key: {{github-private-key}}
+
+- name: git-elasticsearch-boshrelease-release-changes
+  type: git
+  source:
+    uri: https://github.com/hybris/elasticsearch-boshrelease.git
+    branch: master
+    paths:
+      - src/**/*
+      - jobs/**/*
+      - packages/**/*
+      - config/blobs.yml
+      - .final_builds/**/*
+      - templates/**/*
+      - .gitmodules
+
+- name: github-final-release
+  type: github-release
+  source:
+    user: hybris
+    repository: elasticsearch-boshrelease
+    access_token: {{github-access-token}}
+
+- name: final-release
+  type: s3
+  source:
+    bucket: {{boshrelease-aws-bucket}}
+    regexp: elasticsearch-boshrelease/elasticsearch-(.*).tgz
+    access_key_id: {{boshrelease-aws-access-key-id}}
+    secret_access_key: {{boshrelease-aws-secret-access-key}}

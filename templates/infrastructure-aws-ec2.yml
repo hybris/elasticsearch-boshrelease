@@ -1,0 +1,33 @@
+meta:
+  environment: (( merge ))
+  dns_root: (( merge ))
+  security_groups: (( merge ))
+  persistent_disk: 4096
+
+  stemcell:
+    name: bosh-aws-xen-ubuntu
+    version: latest
+
+jobs:
+  - name: elasticsearch
+    networks:
+      - name: elasticsearch1
+    persistent_disk: (( meta.persistent_disk ))
+
+compilation:
+  cloud_properties:
+    instance_type: m1.small
+
+resource_pools:
+  - name: small_z1
+    cloud_properties:
+      instance_type: m1.small
+
+networks:
+  - name: floating
+    type: vip
+    cloud_properties: {}
+  - name: elasticsearch1
+    type: dynamic
+    cloud_properties:
+      security_groups: (( meta.security_groups ))
