@@ -1,0 +1,41 @@
+---
+curator/click-3.3.tar.gz:
+  object_id: e0044e35-2d56-4595-bc44-c55e13b4d050
+  sha: d716a932b930d71059e49465b6b42e833808369a
+  size: 259855
+curator/curator-3.1.0.zip:
+  object_id: 932795ae-4cb9-4258-96b6-9465e0485ebb
+  sha: 441fd0e90423975b0a70831f826a17d93a2f382b
+  size: 121954
+curator/elasticsearch-curator.zip:
+  object_id: af7fe88e-e5f7-417f-b314-4a64f986ca1a
+  sha: 687d39c5fc7ec197d31a1c72de75de74ba35b4c8
+  size: 80519
+curator/elasticsearch-py.zip:
+  object_id: 15cd4f0f-8163-4f3b-b5ee-e7bba9017174
+  sha: 601875a992cbb7cd66006d713f4d7c827407cc71
+  size: 103328
+curator/urllib3-1.8.3.tar.gz:
+  object_id: d083e90b-d7e7-4928-989a-beb25ba81f29
+  sha: 00c92b0c3b0756ae3c4e6262d5bc80023dfe9ca3
+  size: 85466
+elasticsearch/elasticsearch-1.5.2.tar.gz:
+  object_id: eee59154-c56e-4691-ba02-0447ec038324
+  sha: ffe2e46ec88f4455323112a556adaaa085669d13
+  size: 28173132
+java/openjdk-jre-trusty-1.8.0_45.tar.gz:
+  object_id: 3e33307d-527d-4e37-8067-1eadf630e2ae
+  sha: 6517390047b05bdb8dd02b3895378112207abda7
+  size: 44988428
+python/pip-6.0.8.tar.gz:
+  object_id: 761591b2-169f-41df-b478-96a04bd4970d
+  sha: bd59a468f21b3882a6c9d3e189d40c7ba1e1b9bd
+  size: 1200024
+python/Python-2.7.8.tgz:
+  object_id: 3884f99b-d278-4fc6-b360-c0fe46bf44d3
+  sha: 511960dd78451a06c9df76509635aeec05b2051a
+  size: 14846119
+python/setuptools-14.3.tar.gz:
+  object_id: 62fc53a3-386d-4e5d-a844-33b291ad1c39
+  sha: 606dab3feeb778c14f5909cdcf7b127baae3d8ee
+  size: 627582
