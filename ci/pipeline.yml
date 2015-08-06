@@ -9,8 +9,21 @@ groups:
   - patch
   - minor
   - major
+- name:
+  jobs:
+  - build-task-image
 
 jobs:
+- name: build-task-image
+  public: true
+  serial: true
+  plan:
+  - get: git-boshrelease
+    trigger: true
+  - put: docker-image
+    params:
+      build: git-boshrelease/ci/ci_image
+
 - name: testflight
   public: true
   serial: true
@@ -173,3 +186,18 @@ resources:
     regexp: elasticsearch-boshrelease/elasticsearch-(.*).tgz
     access_key_id: {{boshrelease-aws-access-key-id}}
     secret_access_key: {{boshrelease-aws-secret-access-key}}
+
+- name: git-boshrelease
+  type: git
+  source:
+    uri: https://github.com/hybris/elasticsearch-boshrelease.git
+    branch: master
+    paths: [ci/ci_image/*]
+
+- name: docker-image
+  type: docker-image
+  source:
+    email: {{docker-hub-email}}
+    username: {{docker-hub-username}}
+    password: {{docker-hub-password}}
+    repository: {{docker-create-hub-task-image}}
