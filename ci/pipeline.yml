@@ -9,7 +9,7 @@ groups:
   - patch
   - minor
   - major
-- name:
+- name: ci_image
   jobs:
   - build-task-image
 
