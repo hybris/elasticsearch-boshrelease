@@ -154,15 +154,14 @@ resources:
 - name: git-elasticsearch-boshrelease
   type: git
   source:
-    uri: git@github.com:hybris/elasticsearch-boshrelease.git
-    branch: master
-    private_key: {{github-private-key}}
+    uri: {{pipeline-git-repo}}
+    branch: {{pipeline-branch}}
 
 - name: git-elasticsearch-boshrelease-release-changes
   type: git
   source:
-    uri: https://github.com/hybris/elasticsearch-boshrelease.git
-    branch: master
+    uri: {{pipeline-git-repo}}
+    branch: {{pipeline-branch}}
     paths:
       - src/**/*
       - jobs/**/*
@@ -190,8 +189,8 @@ resources:
 - name: git-boshrelease
   type: git
   source:
-    uri: https://github.com/hybris/elasticsearch-boshrelease.git
-    branch: master
+    uri: {{pipeline-git-repo}}
+    branch: {{pipeline-branch}}
     paths: [ci/ci_image/*]
 
 - name: docker-image
