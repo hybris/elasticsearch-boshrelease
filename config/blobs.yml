@@ -39,3 +39,7 @@ python/setuptools-14.3.tar.gz:
   object_id: 62fc53a3-386d-4e5d-a844-33b291ad1c39
   sha: 606dab3feeb778c14f5909cdcf7b127baae3d8ee
   size: 627582
+elasticsearch/elasticsearch-1.7.2.tar.gz:
+  object_id: dda8c1d5-1b84-46bd-bb3f-7fa051924bc4
+  sha: a7c0536bd660b2921a96a37b814f9accc76f5cd9
+  size: 28478292
