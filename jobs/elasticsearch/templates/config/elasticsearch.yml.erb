@@ -38,4 +38,6 @@ action.disable_delete_all_indices: true
 index.refresh_interval: <%= p('elasticsearch.index_refresh_interval') %>
 indices.store.throttle.type: <%= p('elasticsearch.indices_store_throttle_type') %>
 indices.store.throttle.max_bytes_per_sec: <%= p('elasticsearch.indices_store_throttle_max_bytes_per_sec') %>
-script.disable_dynamic: true
+script.inline: off
+script.indexed: off
+script.file: off

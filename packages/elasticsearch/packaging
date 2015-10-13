@@ -1,9 +1,8 @@
 # abort script on any command that exit with a non zero value
 set -e
 
-VERSION=1.5.2
+VERSION=1.7.2
 
 tar xvf elasticsearch/elasticsearch-${VERSION}.tar.gz
 
 cp -a elasticsearch-${VERSION}/. $BOSH_INSTALL_TARGET
-
