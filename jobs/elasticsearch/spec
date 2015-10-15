@@ -77,3 +77,18 @@ properties:
   elasticsearch.logger.level:
     description: Logger level
     default: WARN
+  elasticsearch.indices_cluster_send_refresh_mapping:
+    description: Enable or disable mapping refresh
+    default: true
+  elasticsearch.index_translog_flush_threshold_size:
+    description: Once the translog hits this size, a flush will happen
+    default: 512mb
+  elasticsearch.indices_store_throttle_max_bytes_per_sec:
+    description: Store throttle maximun size
+    default: 20mb
+  elasticsearch.indices_memory_index_buffer_size:
+    description: The indexing buffer setting allows to control how much memory will be allocated for the indexing process
+    default: 10%
+  elasticsearch.threadpool_bulk_queue_size:
+    description: The queue_size allows to control the size of the queue of pending requests that have no threads to execute them
+    default: 50
