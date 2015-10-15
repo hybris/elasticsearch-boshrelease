@@ -58,7 +58,7 @@ properties:
     default: merge
   elasticsearch.indices_store_throttle_max_bytes_per_sec:
     description: Control Elasticsearch merge size
-    default: 5mb
+    default: 20mb
   elasticsearch.gateway_recover_after_nodes:
     description: Allow recovery process after N nodes in a cluster are up
     default: 1
@@ -83,9 +83,6 @@ properties:
   elasticsearch.index_translog_flush_threshold_size:
     description: Once the translog hits this size a flush will happen
     default: 512mb
-  elasticsearch.indices_store_throttle_max:
-    description: Store throttle maximun size
-    default: 20mb
   elasticsearch.indices_memory_index_buffer_size:
     description: The indexing buffer setting allows to control how much memory will be allocated for the indexing process
     default: 10%
