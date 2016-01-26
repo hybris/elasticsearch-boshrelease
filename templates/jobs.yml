@@ -13,6 +13,8 @@ jobs:
     templates:
     - name: elasticsearch
       release: elasticsearch
+    - name: curator
+      release: elasticsearch
     instances: 1
     persistent_disk: 0
     resource_pool: small_z1

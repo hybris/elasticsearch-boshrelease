@@ -2,8 +2,9 @@
 set -e
 
 PACKAGING_ROOT=`pwd`
-PYTHON_VERSION=2.7.8
 
+##### Python installation #####
+PYTHON_VERSION=2.7.8
 cd ${PACKAGING_ROOT}/python
 tar xfz Python-${PYTHON_VERSION}.tgz
 cd Python-${PYTHON_VERSION}
@@ -11,18 +12,21 @@ cd Python-${PYTHON_VERSION}
 make
 make install
 
+##### Python install tools #####
 cd ${PACKAGING_ROOT}/python
-tar -xzf setuptools-14.3.tar.gz
-cd setuptools-14.3/
+tar -xzf setuptools-19.6.tar.gz
+cd setuptools-19.6/
 /var/vcap/packages/curator/python/bin/python setup.py install
 
 cd ${PACKAGING_ROOT}/python
-tar -xzf pip-6.0.8.tar.gz
-cd pip-6.0.8/
+tar -xzf pip-8.0.2.tar.gz
+cd pip-8.0.2/
 /var/vcap/packages/curator/python/bin/python setup.py install
 
+##### Curator and dependancies #####
 cd ${PACKAGING_ROOT}/curator
-/var/vcap/packages/curator/python/bin/pip install urllib3-1.8.3.tar.gz
-/var/vcap/packages/curator/python/bin/pip install elasticsearch-py.zip
-/var/vcap/packages/curator/python/bin/pip install click-3.3.tar.gz
-/var/vcap/packages/curator/python/bin/pip install curator-3.1.0.zip
+/var/vcap/packages/curator/python/bin/pip install urllib3-1.14.tar.gz
+/var/vcap/packages/curator/python/bin/pip install click-6.2.tar.gz
+/var/vcap/packages/curator/python/bin/pip install elasticsearch-2.2.0.tar.gz
+
+/var/vcap/packages/curator/python/bin/pip install elasticsearch-curator-3.4.0.tar.gz

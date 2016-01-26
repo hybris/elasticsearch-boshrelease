@@ -13,10 +13,12 @@ exec 1>> $LOG_DIR/$JOB_NAME.stdout.log
 exec 2>> $LOG_DIR/$JOB_NAME.stderr.log
 
 PATH=/var/vcap/packages/java/bin:$PATH
-PATH=/var/vcap/packages/elasticsearch/bin:$PATH
+PATH=/var/vcap/packages/${JOB_NAME}/bin:$PATH
 JAVA_HOME=/var/vcap/packages/java/
 
 export PATH JAVA_HOME
+
+source /var/vcap/jobs/${JOB_NAME}/bin/utils.sh
 
 <% if_p('elasticsearch.min_memory') do %>export ES_MIN_MEM="<%= p('elasticsearch.min_memory')%>" <% end %>
 <% if_p('elasticsearch.max_memory') do %>export ES_MAX_MEM="<%= p('elasticsearch.max_memory')%>"<% end %>
@@ -26,6 +28,20 @@ export PATH JAVA_HOME
 sysctl -w vm.max_map_count=<%= p('elasticsearch.max_map_count')%>
 sysctl -w vm.swappiness=<%= p('elasticsearch.swappiness')%>
 ulimit -n <%= p('elasticsearch.max_open_files') %>
+swapoff -a
+
+if [ ! -d /var/vcap/packages/elasticsearch/plugins ]
+then
+  mkdir -p /var/vcap/packages/elasticsearch/plugins
+fi
+if [ ! -d /var/vcap/packages/elasticsearch/scripts ]
+then
+  mkdir -p /var/vcap/packages/elasticsearch/scripts
+fi
+if [ ! -d /var/vcap/jobs/elasticsearch/config/scripts ]
+then
+  mkdir -p /var/vcap/jobs/elasticsearch/config/scripts
+fi
 
 <% if p('elasticsearch.plugins_paramedic', true) %>
 if [ ! -d /var/vcap/packages/elasticsearch/plugins/paramedic ]
@@ -59,16 +75,8 @@ case $1 in
     ;;
 
   stop)
-    PID=$(head -1 $PIDFILE)
+    kill_and_wait $PIDFILE
 
-    <% if p('elasticsearch.cluster', nil) %>
-    curl -s -XPOST 'http://localhost:9200/_cluster/nodes/_local/_shutdown'
-    sleep 5
-    <% end %>
-
-    kill $PID
-    while [ -e /proc/$PID ]; do sleep 0.1; done
-    rm -f $PIDFILE
     ;;
 
   *)

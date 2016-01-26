@@ -17,7 +17,7 @@ case $1 in
     then
       echo "#!/bin/sh" > /etc/cron.hourly/curator
       echo " " >> /etc/cron.hourly/curator
-      echo "/var/vcap/packages/curator/python/bin/curator --timeout 900 delete indices --older-than <%= p("curator.retention_days") %> --time-unit days --timestring %Y.%m.%d" >> /etc/cron.hourly/curator
+      echo "/var/vcap/jobs/curator/bin/index_cleanup.sh" >> /etc/cron.hourly/curator
       chmod +x /etc/cron.hourly/curator
     fi
     ;;

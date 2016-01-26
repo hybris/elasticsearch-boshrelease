@@ -3,6 +3,7 @@ name: curator
 
 templates:
   curator_ctl.erb.sh: bin/curator_ctl.sh
+  index_cleanup.sh.erb: bin/index_cleanup.sh
 
 packages:
   - curator
@@ -10,4 +11,10 @@ packages:
 properties:
   curator.retention_days:
     description: indexes retention days
-    default: 7
+    default: 5
+  curator.index_cleanup_batch_size:
+    description: amount of indexes to clean per index cleanup script run
+    default: 50
+  curator.index_cleanup_interval:
+    description: sleep time between 2 indexes cleanup (in seconds)
+    default: 30
