@@ -55,7 +55,7 @@ properties:
     description: Allow recovery process after N data nodes in a cluster are up
     default: 0
   elasticsearch.gateway_expected_nodes:
-    description: Set how many nodes are expected in this cluster
+    description: Set how many nodes (data and illegible master) are expected in this cluster
     default: 0
   elasticsearch.gateway_expected_master_nodes:
     description: Set how many master nodes are expected in this cluster
