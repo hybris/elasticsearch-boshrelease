@@ -43,3 +43,35 @@ elasticsearch/elasticsearch-1.7.2.tar.gz:
   object_id: dda8c1d5-1b84-46bd-bb3f-7fa051924bc4
   sha: a7c0536bd660b2921a96a37b814f9accc76f5cd9
   size: 28478292
+curator/click-6.2.tar.gz:
+  object_id: 1b5900f5-d530-4a3c-9712-3e3153fc0d4e
+  sha: 0fd1a5a25192e987338eac89dbed2d8f4ae15e58
+  size: 281717
+curator/elasticsearch-2.2.0.tar.gz:
+  object_id: dedd1c82-0585-44e9-951e-5de647c9dadf
+  sha: f62887a6ce8d1c3b20e9973cebdc2211a89fb34f
+  size: 57986
+curator/elasticsearch-curator-3.4.0.tar.gz:
+  object_id: 625a73a8-17be-4903-8afc-5909220631d2
+  sha: 7aa08e1b3179321d089873a5d0745c027921448d
+  size: 95544
+curator/urllib3-1.14.tar.gz:
+  object_id: 1fbe131c-945f-46de-b2d7-b405f40e37f2
+  sha: a6df7af9bf4e834756ca390e1dd278adfd4d52ff
+  size: 161497
+elasticsearch/elasticsearch-2.1.1.tar.gz:
+  object_id: 95f4161f-3921-4299-9edc-aba70064d459
+  sha: 360ca8e329b8b0c34b1cd6012c452951f8d3e137
+  size: 29007342
+python/pip-8.0.2.tar.gz:
+  object_id: 7341637e-34da-4510-8067-cb1a51263660
+  sha: 974a8c345d272b9d9072287f399aab8410067f7e
+  size: 1130183
+python/setuptools-19.6.tar.gz:
+  object_id: ed00304a-f6df-4e9d-8ce3-3dd76a9021f0
+  sha: 02430863bbca24652476bc287f5bb83f46753e65
+  size: 641502
+java/openjdk-jre-trusty-1.8.0_65.tar.gz:
+  object_id: ecf60800-d56e-4971-b7ad-38f85ded6e58
+  sha: ab2de9dbeca597c90ff3c5301c55a068a7839377
+  size: 45096447
