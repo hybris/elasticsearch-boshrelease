@@ -81,6 +81,9 @@ properties:
   elasticsearch.indices_store_throttle_max_bytes_per_sec:
     description: Control Elasticsearch merge size
     default: 20mb
+  elasticsearch.http_enabled:
+    description: Control Elasticsearch HTTP module on/off
+    default: true
   elasticsearch.plugins_paramedic:
     default: false
   elasticsearch.plugins_head:

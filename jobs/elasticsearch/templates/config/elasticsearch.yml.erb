@@ -8,6 +8,9 @@ node.master: <%= p('elasticsearch.node_master') %>
 node.data: <%= p('elasticsearch.node_data') %>
 <% end %>
 
+#################################### Network ####################################
+network.host: "0.0.0.0"
+
 #################################### Index ####################################
 index.number_of_shards: <%= p('elasticsearch.number_of_shards') %>
 index.number_of_replicas: <%= p('elasticsearch.number_of_replicas') %>
@@ -45,6 +48,7 @@ indices.store.throttle.max_bytes_per_sec: <%= p('elasticsearch.indices_store_thr
 script.inline: off
 script.indexed: off
 script.file: off
+http.enabled: <%= p('elasticsearch.http_enabled') %>
 
 ################################### Requested by Tollans ################################
 indices.cluster.send_refresh_mapping: <%= p('elasticsearch.indices_cluster_send_refresh_mapping') %>
