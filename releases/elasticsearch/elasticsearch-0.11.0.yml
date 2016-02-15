@@ -1,0 +1,52 @@
+---
+packages:
+- name: java
+  version: !binary |-
+    NTM0MjA0ZDBhMGRkMmU0ZGM3ZmU3N2VjODIyNzE2ZDg1NmU0ZTRiZQ==
+  fingerprint: !binary |-
+    NTM0MjA0ZDBhMGRkMmU0ZGM3ZmU3N2VjODIyNzE2ZDg1NmU0ZTRiZQ==
+  sha1: !binary |-
+    YmNkYmJlN2Y0MjRhYTAyOGIwNjdkYTViYjMyZDk0ZmEwNmNhYjgzZg==
+  dependencies: []
+- name: elasticsearch
+  version: !binary |-
+    YWRiM2IxYzYxMDRkYzhlNmM3ZjdhN2I0ZWQwZGFhNGMyZWM1OGFiMg==
+  fingerprint: !binary |-
+    YWRiM2IxYzYxMDRkYzhlNmM3ZjdhN2I0ZWQwZGFhNGMyZWM1OGFiMg==
+  sha1: !binary |-
+    NWZhZTQ4MjEzODNmN2ZjY2Y4YjhiYjZkZWY5ZTc5MDM5ZWJkOGU4Mg==
+  dependencies: []
+- name: curator
+  version: !binary |-
+    ZGRlZjYwODFiMjdkYTJlZTc2ZTQ1YzA3ZTk2MWVjYzc0OTllZjQ2Ng==
+  fingerprint: !binary |-
+    ZGRlZjYwODFiMjdkYTJlZTc2ZTQ1YzA3ZTk2MWVjYzc0OTllZjQ2Ng==
+  sha1: !binary |-
+    YTJkY2VkYzZhZDYwOTBiOTdiMGEyNDVhNzgwNTQ5NmJjYzFlNTlkNw==
+  dependencies: []
+jobs:
+- name: elasticsearch
+  version: !binary |-
+    ODc5YzVkZmNmODllNWNmZjhlZDY4MGIxZjg1YzcwOGRkYTJjZTA5NA==
+  fingerprint: !binary |-
+    ODc5YzVkZmNmODllNWNmZjhlZDY4MGIxZjg1YzcwOGRkYTJjZTA5NA==
+  sha1: !binary |-
+    YzJkN2JhNTliYjIxZWFiZmViMWYzMTY0NmQxNzgzZTg5YzMwMjZhZg==
+- name: curator
+  version: !binary |-
+    YjY4MjQyYTNmNTQyMjVmOTg3MWE4ZjNmMjA0NGIyY2Q5MTRmMzk0Yg==
+  fingerprint: !binary |-
+    YjY4MjQyYTNmNTQyMjVmOTg3MWE4ZjNmMjA0NGIyY2Q5MTRmMzk0Yg==
+  sha1: !binary |-
+    N2M2MjAzYTI1ZmM1MTA0YjhmMTFjMzYxMzE2Mjc3ZjYwZmMzMWM0MQ==
+license:
+  version: !binary |-
+    NTY5YTQ4MTY2M2Y5NWIxMGNiODAzNTM5YmE2MWE4YzI0YTg4MTQ2Mw==
+  fingerprint: !binary |-
+    NTY5YTQ4MTY2M2Y5NWIxMGNiODAzNTM5YmE2MWE4YzI0YTg4MTQ2Mw==
+  sha1: !binary |-
+    YmIxNzJkZGIzY2MwNDc2ZTllN2ZkYTIzOThhN2JmNDhhMjQxMDFlYQ==
+commit_hash: ca0262ce
+uncommitted_changes: true
+name: elasticsearch
+version: 0.11.0
