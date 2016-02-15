@@ -6,7 +6,7 @@ index_deletion_batch_size="<%= p('curator.index_cleanup_batch_size') %>"
 index_cleanup_interval="<%= p('curator.index_cleanup_interval') %>"
 
 # Getting indexes to be deleted using ES curator
-indexes_to_delete=`/var/vcap/packages/curator/python/bin/curator --timeout 900 show indices --older-than ${curator_retention_days} --time-unit days --timestring %Y.%m.%d 2> /dev/null | grep -v 'No indices matched' | head -${index_deletion_batch_size}`
+indexes_to_delete=`/var/vcap/packages/curator/python/bin/curator --timeout 900 show indices --older-than ${curator_retention_days} --time-unit days --timestring %Y.%m.%d 2> /dev/null | grep -v 'No indices matched' | grep -Pv 'INFO|WARN|ERROR' | head -${index_deletion_batch_size}`
 
 # Sending index delete to ES
 if [[ ! ${indexes_to_delete} =~ "No indices found" ]]

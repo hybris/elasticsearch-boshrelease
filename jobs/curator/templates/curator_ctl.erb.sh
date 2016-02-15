@@ -17,7 +17,11 @@ case $1 in
     then
       echo "#!/bin/sh" > /etc/cron.hourly/curator
       echo " " >> /etc/cron.hourly/curator
+      <% if spec.index.to_i == 1 %>
       echo "/var/vcap/jobs/curator/bin/index_cleanup.sh" >> /etc/cron.hourly/curator
+      <% else %>
+      echo "#/var/vcap/jobs/curator/bin/index_cleanup.sh" >> /etc/cron.hourly/curator
+      <% end %>
       chmod +x /etc/cron.hourly/curator
     fi
     ;;
