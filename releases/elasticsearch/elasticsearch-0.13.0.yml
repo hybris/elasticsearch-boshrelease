@@ -1,0 +1,34 @@
+---
+packages:
+- name: java
+  version: 534204d0a0dd2e4dc7fe77ec822716d856e4e4be
+  fingerprint: 534204d0a0dd2e4dc7fe77ec822716d856e4e4be
+  sha1: bcdbbe7f424aa028b067da5bb32d94fa06cab83f
+  dependencies: []
+- name: elasticsearch
+  version: adb3b1c6104dc8e6c7f7a7b4ed0daa4c2ec58ab2
+  fingerprint: adb3b1c6104dc8e6c7f7a7b4ed0daa4c2ec58ab2
+  sha1: 5fae4821383f7fccf8b8bb6def9e79039ebd8e82
+  dependencies: []
+- name: curator
+  version: ddef6081b27da2ee76e45c07e961ecc7499ef466
+  fingerprint: ddef6081b27da2ee76e45c07e961ecc7499ef466
+  sha1: a2dcedc6ad6090b97b0a245a7805496bcc1e59d7
+  dependencies: []
+jobs:
+- name: elasticsearch
+  version: 879c5dfcf89e5cff8ed680b1f85c708dda2ce094
+  fingerprint: 879c5dfcf89e5cff8ed680b1f85c708dda2ce094
+  sha1: c2d7ba59bb21eabfeb1f31646d1783e89c3026af
+- name: curator
+  version: b68242a3f54225f9871a8f3f2044b2cd914f394b
+  fingerprint: b68242a3f54225f9871a8f3f2044b2cd914f394b
+  sha1: 7c6203a25fc5104b8f11c361316277f60fc31c41
+license:
+  version: 569a481663f95b10cb803539ba61a8c24a881463
+  fingerprint: 569a481663f95b10cb803539ba61a8c24a881463
+  sha1: bb172ddb3cc0476e9e7fda2398a7bf48a24101ea
+commit_hash: 2716f79e
+uncommitted_changes: false
+name: elasticsearch
+version: 0.13.0
