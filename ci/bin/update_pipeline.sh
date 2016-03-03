@@ -2,7 +2,7 @@
 
 set -e
 
-TARGET=${TARGET:-"sap"}
+TARGET=${TARGET:-"cnc2"}
 PIPELINE_NAME=${PIPELINE_NAME:-"elasticsearch-boshrelease"}
 
 if ! [ -x "$(command -v spruce)" ]; then

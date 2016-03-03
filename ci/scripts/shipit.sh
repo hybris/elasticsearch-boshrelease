@@ -62,5 +62,10 @@ bosh target ${BOSH_TARGET}
 
 bosh -n create release --final --with-tarball --version "$version"
 
+# copy to output dir
+source_dir=$(pwd)
+cp -R $source_dir $output_dir
+cd $output_dir
+
 git add -A
 git commit -m "release v${version}"
