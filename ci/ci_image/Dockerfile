@@ -16,4 +16,9 @@ ENV GOROOT /goroot
 ENV GOPATH /gopath
 ENV PATH $GOROOT/bin:$GOPATH/bin:$PATH
 
+ADD https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.7/spiff_linux_amd64.zip /tmp/
+RUN unzip -o /tmp/spiff_linux_amd64.zip -d /usr/local/bin
+RUN rm /tmp/spiff_linux_amd64.zip
+
+
 RUN go get github.com/bronze1man/yaml2json
