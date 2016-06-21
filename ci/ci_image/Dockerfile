@@ -17,4 +17,3 @@ ENV GOPATH /gopath
 ENV PATH $GOROOT/bin:$GOPATH/bin:$PATH
 
 RUN go get github.com/bronze1man/yaml2json
-RUN go get github.com/cloudfoundry-community/humanize-manifest
