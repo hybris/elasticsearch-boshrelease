@@ -111,6 +111,8 @@ jobs:
       inputs:
       - {name: boshrelease, path: elasticsearch-boshrelease}
       - {name: version}
+      outputs:
+      - {name: create-final-release, path: output}
       run:
         path: ./elasticsearch-boshrelease/ci/scripts/shipit.sh
         args: []
@@ -123,6 +125,7 @@ jobs:
         aws_access_key_id: {{boshrelease-aws-access-key-id}}
         aws_secret_access_key: {{boshrelease-aws-secret-access-key}}
         promotion_branch: master
+        output_dir: ../output/elasticsearch-boshrelease
   - put: git-elasticsearch-boshrelease
     params:
       repository: create-final-release/elasticsearch-boshrelease
